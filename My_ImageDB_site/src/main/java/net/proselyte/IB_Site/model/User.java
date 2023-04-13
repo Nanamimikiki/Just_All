@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 public class User {
     @Column(name = "username")
     private String userName;
-    @Column(name = "address")
+    @Column(name = "ipAddress")
     private String ipAddress;
 
     public String getUserName() {

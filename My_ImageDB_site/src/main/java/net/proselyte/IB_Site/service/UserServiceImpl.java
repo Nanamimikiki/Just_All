@@ -1,11 +1,11 @@
 package net.proselyte.IB_Site.service;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import net.proselyte.IB_Site.model.User;
 import net.proselyte.IB_Site.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -30,6 +30,12 @@ public class UserServiceImpl implements UserService {
     public void delete(Long id) {
         log.info("In UserServiceImpl delete()", id);
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public String getUserIpAddress(HttpServletRequest request) {
+        log.info("In UserServiceImpl getUserIpAddress()", request);
+        return userRepository.getRequestIP(request);
     }
 
     @Override

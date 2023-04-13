@@ -1,1 +1,1 @@
-insert into users values (1337, Who, China);
+insert into users values (1337, Who, 192);
