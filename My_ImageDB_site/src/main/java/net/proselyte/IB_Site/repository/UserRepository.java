@@ -10,5 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    String getRequestIP(HttpServletRequest request);
+    String findUsersIpById (Long id);
+    User findByUserName(String username);
+    User findByIpAddress(String ipAddress);
 }
