@@ -8,9 +8,6 @@ public interface UserService {
     User getById(Long id);
     void save (User user);
     void delete(Long id);
-    public String getUserIpAddressById(Long id);
-    User findByIpAddress(String ipAddress);
+    User getByUserName(String username);
     List<User> getAll();
-
-
 }

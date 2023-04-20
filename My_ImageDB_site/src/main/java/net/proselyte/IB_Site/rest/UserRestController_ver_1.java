@@ -1,6 +1,5 @@
 package net.proselyte.IB_Site.rest;
 
-import jakarta.servlet.http.HttpServletRequest;
 import net.proselyte.IB_Site.model.User;
 import net.proselyte.IB_Site.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +18,7 @@ public class UserRestController_ver_1 {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-        public ResponseEntity<User> getUser(@PathVariable("id") Long userId){
-        if (userId == null){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
 
-        User user = this.userService.getById(userId);
-        if (user == null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> saveUser (@RequestBody @Validated User user){
         HttpHeaders headers = new HttpHeaders();
@@ -58,6 +46,30 @@ public class UserRestController_ver_1 {
         this.userService.delete(id);
         return new ResponseEntity<>(user, HttpStatus.NO_CONTENT);
     }
+    @RequestMapping(value = "{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> getUserById(@PathVariable("id") Long userId){
+        if (userId == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        User user = this.userService.getById(userId);
+        if (user == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<User> getByUserName(String username){
+        if (username == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        User user = this.userService.getByUserName(username);
+        if (user == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<User>> getAllUsers(){
         List<User> users = this.userService.getAll();
@@ -65,13 +77,5 @@ public class UserRestController_ver_1 {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(users, HttpStatus.OK);
-    }
-    @RequestMapping(method = RequestMethod.GET, value = "/user-ip-address", produces = MediaType.TEXT_PLAIN_VALUE)
-    @ResponseBody
-    public ResponseEntity<HttpServletRequest> getUserIpAddress(HttpServletRequest request) {
-        if (request == null){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(request, HttpStatus.OK);
     }
 }
