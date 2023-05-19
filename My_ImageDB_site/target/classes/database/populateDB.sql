@@ -1,1 +1,0 @@
-insert into users values (1, 'namiki', '192.169.0.1');

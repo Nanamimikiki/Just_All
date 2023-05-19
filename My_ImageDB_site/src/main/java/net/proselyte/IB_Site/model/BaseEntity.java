@@ -1,5 +1,9 @@
 package net.proselyte.IB_Site.model;
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import java.util.Date;
 
 /**
  * Base class with property ID.
@@ -13,6 +17,12 @@ public class BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private Status status;
+    @CreatedDate
+    @Column(name = "created")
+    private Date created;
+    @LastModifiedDate
+    @Column(name = "updated")
+    private Date Updated;
 
     public Long getId() {
         return id;
@@ -28,5 +38,13 @@ public class BaseEntity {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public Date getUpdated() {
+        return Updated;
     }
 }

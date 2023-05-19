@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Interface for {@link User} class.
  */
 public interface UserRepository extends JpaRepository<User, Long> {
-    User getByUserName(String username);
+    User findByUserName(String username);
 }

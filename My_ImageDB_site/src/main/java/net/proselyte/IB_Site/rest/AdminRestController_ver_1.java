@@ -13,11 +13,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/ver_1/users")
-public class UserRestController_ver_1 {
+@RequestMapping("api/v1/admin")
+public class AdminRestController_ver_1 {
     @Autowired
     private UserService userService;
-
 
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> saveUser (@RequestBody @Validated User user){
@@ -25,7 +24,7 @@ public class UserRestController_ver_1 {
         if (user == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        this.userService.save(user);
+        this.userService.register(user);
         return new ResponseEntity<>(user, headers, HttpStatus.CREATED);
     }
     @RequestMapping(value = "", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -34,12 +33,12 @@ public class UserRestController_ver_1 {
         if (user == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        this.userService.save(user);
+        this.userService.register(user);
         return new ResponseEntity<>(user, headers, HttpStatus.OK);
     }
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> deleteUser(@PathVariable("id") Long id){
-        User user = this.userService.getById(id);
+        User user = this.userService.findById(id);
         if(user == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -52,7 +51,7 @@ public class UserRestController_ver_1 {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        User user = this.userService.getById(userId);
+        User user = this.userService.findById(userId);
         if (user == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -60,11 +59,11 @@ public class UserRestController_ver_1 {
     }
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<User> getByUserName(String username){
+    public ResponseEntity<User> findByUserName(String username){
         if (username == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        User user = this.userService.getByUserName(username);
+        User user = this.userService.findByUserName(username);
         if (user == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

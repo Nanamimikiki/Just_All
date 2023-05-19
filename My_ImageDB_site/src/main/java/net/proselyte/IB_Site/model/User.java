@@ -15,8 +15,8 @@ public class User extends BaseEntity {
     private Long id;
     @Column(name = "username")
     private String userName;
-    @Column(name = "ipAddress")
-    private String ipAddress;
+    @Column(name = "password")
+    private String password;
     @ManyToMany
     @JoinTable(name = "user_roles", joinColumns =  @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -26,24 +26,23 @@ public class User extends BaseEntity {
         return userName;
     }
 
-    public String getIpAddress() {
-        return ipAddress;
-    }
-
     public void setUserName(String userName) {
         this.userName = userName;
     }
-
-    public void setIpAddress(String ip) {
-        this.ipAddress = ipAddress;
-    }
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Set<Role> getRoles() {
@@ -53,8 +52,13 @@ public class User extends BaseEntity {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-
-    public String toString(){
-        return "User " + getUserName() + " with ip " + getIpAddress();
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 }
