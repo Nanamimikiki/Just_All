@@ -1,6 +1,6 @@
-package com.MusicBlog.Controller;
+package com.MusicBlog.Controllers;
 
-import com.MusicBlog.Repository.PostRepository;
+import com.MusicBlog.Repositories.PostRepository;
 import com.MusicBlog.model.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

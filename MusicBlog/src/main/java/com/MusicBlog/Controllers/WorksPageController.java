@@ -1,4 +1,4 @@
-package com.MusicBlog.Controller;
+package com.MusicBlog.Controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,4 +11,5 @@ public class WorksPageController {
         model.addAttribute("works", "Works");
         return "works";
     }
+
 }
