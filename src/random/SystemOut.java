@@ -1,27 +1,29 @@
 package random;
 
+import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayDeque;
 import java.util.Iterator;
 import java.util.Scanner;
 
 public class SystemOut {
     public static void main(String[] args) {
-        ArrayDeque<String> arrayDeque = new ArrayDeque<>();
-        try (Scanner scanner = new Scanner(System.in)) {
-            while (scanner.hasNext()) {
-                if (scanner.hasNextInt()) {
-                    arrayDeque.add(String.valueOf(scanner.nextInt()));
-                }
+        ArrayDeque<Integer> arrayDeque = new ArrayDeque<>();
+        StringBuffer sb = new StringBuffer();
+        Scanner scanner = new Scanner(System.in);
+        int count = 0;
+        int nextInt;
+        while (scanner.hasNextInt()) {
+            nextInt = scanner.nextInt();
+            if (count % 2 != 0) {
+                arrayDeque.add(nextInt);
             }
+            count++;
         }
         while (!arrayDeque.isEmpty()) {
-            Iterator<String> descendingIterator = arrayDeque.descendingIterator();
-            StringBuffer sb = new StringBuffer();
-            while (descendingIterator.hasNext()) {
-                sb.append(descendingIterator.next()).append(" ");
-                descendingIterator.next();
-            }
-            System.out.println(sb);
+            sb.append(arrayDeque.pollLast()).append(" ");
         }
+        System.out.println(sb);
     }
 }
+
