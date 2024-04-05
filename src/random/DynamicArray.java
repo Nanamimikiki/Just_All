@@ -28,5 +28,6 @@ public class DynamicArray<T> {
         }
         return array[index];
     }
+
 }
 
