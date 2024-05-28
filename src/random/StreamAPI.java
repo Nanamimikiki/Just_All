@@ -2,34 +2,26 @@ package random;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
+import java.io.UnsupportedEncodingException;
 import java.util.stream.Stream;
+import java.util.stream.Collectors;
+
 
 public class StreamAPI {
-    public static void main(String[] args) {
-        HashMap<String, Integer> result = new HashMap<>();
-        (new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8)))
+    public static void main(String[] args) throws UnsupportedEncodingException {
+        (new BufferedReader(new InputStreamReader(System.in, "UTF-8")))
                 .lines()
                 .flatMap(line -> Stream.of(line.split("[\\p{P}\\s]+")))
-                .map(String::toLowerCase)
-                .forEach(word -> {
-                    if (result.containsKey(word)) {
-                        result.put(word, result.get(word) + 1);
-                    } else {
-                        result.put(word, 1);
-                    }
-                });
-        result.entrySet()
+                .collect(Collectors.groupingBy(String::toLowerCase, Collectors.counting()))
+                .entrySet()
                 .stream()
-                .sorted((word1, word2) -> {
-                    if (word1.getValue() == word2.getValue()) {
-                        return word1.getKey().compareTo(word2.getKey());
-                    } else {
-                        return word2.getValue().compareTo(word1.getValue());
-                    }
-                })
+                .sorted(
+                        (e0, e1) -> {
+                            final int res = e1.getValue().compareTo(e0.getValue());
+                            return res == 0 ? e0.getKey().compareTo(e1.getKey()) : res;
+                        }
+                )
                 .limit(10)
-                .forEach(elem -> System.out.println(elem.getKey()));
+                .forEach(e -> System.out.println(e.getKey()));
     }
 }
